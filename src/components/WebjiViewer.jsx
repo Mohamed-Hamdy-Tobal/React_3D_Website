@@ -11,12 +11,22 @@ import {
     ProgressivePlugin,
     GBufferPlugin
 } from "webgi";
+import { scrollAnimation } from '../lib/scroll-animation';
+import gsap from 'gsap';
 
 gsap.registerPlugin(ScrollTrigger)
 
 const WebjiViewer = () => {
 
     const canvasRef = useRef();
+
+    const memoizedScrollAnimation = useCallback(
+        (position, target, onUpdate) => {
+            if (position && target && onUpdate) {
+                scrollAnimation(position, target, onUpdate)
+            }
+        }, []
+    )
 
     const setupViewer = useCallback(async () => {
 
@@ -52,12 +62,19 @@ const WebjiViewer = () => {
 
         let needUpdate = true
 
+        const onUpdate = () => {
+            needUpdate = true
+            viewer.setDirty()
+        }
+
         viewer.addEventListener("preFrame", () => {
             if (needUpdate) {
                 camera.positionTargetUpdated(true)
                 needUpdate = false
             }
         })
+
+        memoizedScrollAnimation(position, target, onUpdate)
 
     }, []);
 
