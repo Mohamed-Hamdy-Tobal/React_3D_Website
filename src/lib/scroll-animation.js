@@ -1,51 +1,89 @@
 import gsap from "gsap"
 
-export const scrollAnimation = (position, target, onUpdate) => {
+export const scrollAnimation = (position, target, isMobile, onUpdate) => {
+
+    console.log("isMobile: ", isMobile)
+
     const tl = gsap.timeline()
 
     tl.to(position, {
-        x : -3.38,
-        y : -10.74,
-        z : -5.93,
+        x: !isMobile ? -3.38 : -7.0,
+        y: !isMobile ? -10.74 : -12.2,
+        z: !isMobile ? -5.93 : 6.0,
         scrollTrigger: {
             trigger: ".sound-section",
-            start:"top bottom",
-            end:"top top",
-            scrub:2,
-            immediateRender:false,
+            start: "top bottom",
+            end: "top top",
+            scrub: 2,
+            immediateRender: false,
         },
         onUpdate
     })
-    .to(target, {
-        x : 1.52,
-        y : 0.77,
-        z : -1.08,
-        scrollTrigger: {
-            trigger: ".sound-section",
-            start:"top bottom",
-            end:"top top",
-            scrub:2,
-            immediateRender:false,
-        },
-    })
-    .to('.jumbotron-section', {
-        opacity:0,
-        scrollTrigger: {
-            trigger: ".sound-section",
-            start:"top bottom",
-            end:"top top",
-            scrub:2,
-            immediateRender:false,
-        },
-    })
-    .to('.sound-section-content', {
-        opacity:1,
-        scrollTrigger: {
-            trigger: ".sound-section",
-            start:"top bottom",
-            end:"top top",
-            scrub:2,
-            immediateRender:false,
-        },
-    })
+        .to(target, {
+            x: !isMobile ? 1.52 : 0.7,
+            y: !isMobile ? 0.77 : 1.9,
+            z: !isMobile ? -1.08 : 0.7,
+            scrollTrigger: {
+                trigger: ".sound-section",
+                start: "top bottom",
+                end: "top top",
+                scrub: 2,
+                immediateRender: false,
+            },
+        })
+        .to('.jumbotron-section', {
+            opacity: 0,
+            scrollTrigger: {
+                trigger: ".sound-section",
+                start: "top bottom",
+                end: "top top",
+                scrub: 2,
+                immediateRender: false,
+            },
+        })
+        .to('.sound-section-content', {
+            opacity: 1,
+            scrollTrigger: {
+                trigger: ".sound-section",
+                start: "top bottom",
+                end: "top top",
+                scrub: 2,
+                immediateRender: false,
+            },
+        })
+        .to(position, {
+            x: !isMobile ? 1.56 : 9.63,
+            y: !isMobile ? 5.0 : 10.59,
+            z: !isMobile ? 0.01 : 0.09,
+            scrollTrigger: {
+                trigger: ".display-section",
+                start: "top bottom",
+                end: "top top",
+                scrub: 2,
+                immediateRender: false,
+            },
+            onUpdate
+        })
+        .to(target, {
+            x: !isMobile ? -0.55 : -1.62,
+            y: !isMobile ? 0.32 : 0.02,
+            z: !isMobile ? 0.0 : -0.06,
+            scrollTrigger: {
+                trigger: ".display-section",
+                start: "top bottom",
+                end: "top top",
+                scrub: 2,
+                immediateRender: false,
+            },
+        })
+        .to('.display-section', {
+            opacity: 1,
+            scrollTrigger: {
+                trigger: ".display-section",
+                start: "top bottom",
+                end: "top top",
+                scrub: 2,
+                immediateRender: false,
+            },
+        })
 }
